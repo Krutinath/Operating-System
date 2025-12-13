@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rock-Paper-Scissor</title>
+  </head>
+  <body>
+    <button id="rock">Rock</button>
+    <button id="paper">Paper</button>
+    <button id="scissors">Scissors</button>
+
+    <div id="result"></div>
+    <div id="score"></div>
+
+    <script>
+      //-----------------------------------------------
+
+      let humanScore = 0;
+      let computerScore = 0;
+
+      const resultDiv = document.getElementById("result");
+      const scoreDiv = document.getElementById("score");
+
+      document
+        .getElementById("rock")
+        .addEventListener("click", () => playRound(1));
+      document
+        .getElementById("paper")
+        .addEventListener("click", () => playRound(2));
+      document
+        .getElementById("scissors")
+        .addEventListener("click", () => playRound(3));
+
+      function playRound(humanSelection) {
+        if (humanScore === 5 || computerScore === 5) return;
+
+        const computerSelection = getComputerChoice();
+
+        if (humanSelection === computerSelection) {
+          resultDiv.textContent = "😐 Draw! Same choice.";
+        } else if (
+          (humanSelection === 1 && computerSelection === 3) ||
+          (humanSelection === 2 && computerSelection === 1) ||
+          (humanSelection === 3 && computerSelection === 2)
+        ) {
+          humanScore++;
+          resultDiv.textContent = "✅ You win this round!";
+        } else {
+          computerScore++;
+          resultDiv.textContent = "❌ You lose this round!";
+        }
+
+        scoreDiv.textContent = `You: ${humanScore} | Computer: ${computerScore}`;
+
+        if (humanScore === 5) {
+          resultDiv.textContent = "🎉 You won the game!";
+        } else if (computerScore === 5) {
+          resultDiv.textContent = "💻 Computer wins the game!";
+        }
+      }
+
+      function getComputerChoice() {
+        return Math.ceil(Math.random() * 3);
+      }
+    </script>
+  </body>
+</html>
